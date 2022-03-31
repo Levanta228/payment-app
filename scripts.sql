@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS table_user
 CREATE TABLE IF NOT EXISTS bankAccount
 (
     account_id     int PRIMARY KEY,
-    account_number VARCHAR(50) UNIQUE NOT NULL,
-    balance        int                NOT NULL
+    account_number int UNIQUE NOT NULL,
+    balance        bigint                NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS creditCard
