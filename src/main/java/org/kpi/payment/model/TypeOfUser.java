@@ -1,6 +1,9 @@
 package org.kpi.payment.model;
 
-public enum TypeOfUser {
-    ADMIN,
-    USER
+import lombok.Data;
+
+@Data
+public class TypeOfUser {
+    private int id;
+    private String role;
 }
