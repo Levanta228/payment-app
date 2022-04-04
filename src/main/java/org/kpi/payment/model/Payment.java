@@ -1,22 +1,33 @@
 package org.kpi.payment.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@EqualsAndHashCode(callSuper = false)
+@Table(name = "payment")
+@Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Payment {
-    private Integer paymentId;
-    private Integer sender;
-    private Integer receiver;
+public class Payment extends BaseEntity {
+
+    @ManyToOne
+    @JoinColumn(name = "sender")
+    private BankAccount senderId;
+
+    @ManyToOne
+    @JoinColumn(name = "receiver")
+    private BankAccount receiverId;
+
+    @Column(name = "payment_date")
     private LocalDateTime paymentDate;
+
+    @Column
     private Long amount;
+
+    @Column
     private String type;
+
+    @Column
     private String details;
 }

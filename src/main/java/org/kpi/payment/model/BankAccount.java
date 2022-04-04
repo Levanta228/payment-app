@@ -2,11 +2,18 @@ package org.kpi.payment.model;
 
 import lombok.*;
 
-@Data // added ToString, EqualsAndHashCode, Getter, Setter and RequiredArgsConstructor
-@NoArgsConstructor // for Hibernate
-@AllArgsConstructor
-public class BankAccount {
-    private Integer id;
+import javax.persistence.*;
+
+
+@EqualsAndHashCode(callSuper = false)
+@Table(name = "bankaccount")
+@Entity
+@Data
+public class BankAccount extends BaseEntity{
+
+    @Column(name = "account_number")
     private Integer accountNumber;
+
+    @Column
     private Long balance;
 }

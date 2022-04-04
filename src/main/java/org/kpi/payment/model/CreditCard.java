@@ -1,22 +1,30 @@
 package org.kpi.payment.model;
 
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.ToString;
-
+import lombok.*;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@EqualsAndHashCode(callSuper = false)
+@Table(name = "creditcard")
+@Entity
 @Data
-@Builder
-public class CreditCard {
-    private final Integer card_id;
-    private Integer card_number;
-    @ToString.Exclude
+@ToString(exclude = {"cardNumber", "cvv", "pin"})
+public class CreditCard extends BaseEntity {
+
+    @Column(name = "card_number")
+    private Integer cardNumber;
+
+    @Column(name = "expiration")
     private LocalDateTime expirationDate;
-    @ToString.Exclude
-    private final Integer cvv;
-    @ToString.Exclude
-    private final Integer pin;
+
+    @Column
+    private Integer cvv;
+
+    @Column
+    private Integer pin;
+
+    @ManyToOne
+    @JoinColumn(name = "account_id")
     private BankAccount accountId;
 }

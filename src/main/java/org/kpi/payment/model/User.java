@@ -1,25 +1,37 @@
 package org.kpi.payment.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
-import javax.persistence.Enumerated;
+import javax.persistence.*;
+import java.util.Set;
 
-@Data // added ToString, EqualsAndHashCode, Getter, Setter and RequiredArgsConstructor
-@NoArgsConstructor // for Hibernate
-@AllArgsConstructor
-public class User {
-    private Integer userId;
-    @ToString.Exclude
-    private Integer cellNumber;
-    @ToString.Exclude
+@EqualsAndHashCode(callSuper = false)
+@Table(name = "table_user")
+@Entity
+@Data
+@ToString(exclude = {"cellNumber", "password"})
+public class User extends BaseEntity {
+
+    @Column(name = "contact")
+    private String cellNumber;
+
+    @Column
     private String password;
+
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "second_name")
     private String lastName;
+
+    @Column
     private String email;
-    @Enumerated
-    private TypeOfUser role;
+
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.ALL})
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<UserRole> roles;
 
 }
